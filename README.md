@@ -163,3 +163,69 @@ func rectArea(of rect: Rectangle) -> Double {
 print(rectArea(of: myRect))
 
 ```
+**6.2 Пользовательские типы данных, их свойства и методы**
+
+Реализуйте классическую детскую игру «Камень-ножницы-бумага».
+
+«Камень, ножницы, бумага» — игра для двух игроков. Каждый игрок выбирает камень, ножницы или бумагу, не зная выбора другого игрока.
+
+Победитель определяется по ряду правил:
+
+Камень побеждает ножницы
+Ножницы бьют бумагу
+Бумага побеждает камень
+Если оба игрока выбирают одно и то же, в этом раунде нет победителя.
+
+*** Добавить дополнительные оружия - [Ссылка](https://en.wikipedia.org/wiki/Rock_paper_scissors#Additional_weapons)
+
+```
+/Для отладки используйте Xcode или online компиллятор http://online.swiftplayground.run
+//Результат выведите в print
+
+
+let input = readLine()!.split(separator: " ")        //rock scissors - Считываем проверочные параметры
+let first = String(input.first!)                            //rock - 1 параметр в поле ввода - String
+let second = String(input.last!)                            //scissors - 2 параметр в поле ввода - String
+
+// 1. Определить тип для rock, paper, scissors и назвать его Choice. Какой подойдет лучше?
+
+enum Choice {
+    case rock
+    case scissors
+    case paper
+}
+
+// 2. Создать computed property для типа Choice, чтобы вычислять weakness
+
+var weakness: Choice? {
+    switch (first, second) {
+    case ("rock" , "scissors"): return .scissors
+    case ("rock" , "paper"): return .rock
+    case ("paper" , "scissors"): return .paper
+    case ("paper", "rock"): return .paper
+    case ("scissors", "rock"): return .scissors
+    case ("scissors", "paper"): return .paper
+    default: return nil
+    }
+}
+
+// 3. Создать структуру Game
+//    a. Создать свойства для хранения счета двух игроков(p1Score, p2Score)
+//    b. Создать свойство для хранения истории прошлых игр
+//    c. Создать метод play внутри которого будут передаваться выборы игроков
+//        i. Обновлять историю игр
+//        ii. В зависимости от победителся повышать p1Score/p2Score и принтить "player 1 wins" / "player 2 wins" / "draw"
+struct Game {
+    var p1Score = 0
+    var p2Score = 0
+    var prevGames: [[Choice]] = []
+    
+    mutating func(p1Choice)
+    
+}
+// 4. инициализировать выборы игроков используя first & second. Hint: rawValue
+
+
+//game.play(p1Choice, against: p2Choice)
+
+```
