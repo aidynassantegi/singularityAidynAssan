@@ -106,3 +106,19 @@ print(circleArea)
 Внутри функции создать переменную isSuccess типа Bool, которая случайно будет выбирать между true и false(google it).
 * Далее если `isSuccess == true`  , нужно вызвать функцию, которая является аргументом `getGrade` , передав туда `ResultType.success` со значением 95
 * Если `isSuccess == false`, нужно также вызвать функцию которая является аргументом `getGrade`, передав туда `ResultType.failure` со значением `"Grades not available yet, try again later"`
+
+```
+enum ResultType {
+    case success(Int)
+    case failure(String)
+}
+
+func getGrade(completion: (ResultType)->Void) {
+    let isSuccess: Bool = Bool.random()
+    if isSuccess {
+        completion(.success(95))
+    }else {
+        completion(.failure("Grades not available yet, try again later"))
+    }
+}
+```
