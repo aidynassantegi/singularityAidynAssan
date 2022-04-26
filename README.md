@@ -122,3 +122,44 @@ func getGrade(completion: (ResultType)->Void) {
     }
 }
 ```
+
+**6.2 Пользовательские типы данных, их свойства и методы**
+
+**Задания на Structs & Classes**
+
+1. Создать класс `Circle`, добавить свойство radius типа `Double`. Далее нужно написать функцию `calculateArea`, которая будет принимать параметр типа `Circle` и возвращать площадь, топ которого будет `Double`
+```
+class Circle {
+    let radius: Double
+    init(radius: Double) {
+        self.radius = radius
+    }
+}
+
+func circleArea(circle: Circle) -> Double {
+    circle.radius * circle.radius * 3.14
+}
+
+let myCircle = Circle(radius: 10)
+print(circleArea(circle: myCircle))
+```
+2. Создать класс `Rectangle`, добавить свойства `length` и `width` типа `Double`. Далее нужно написать функцию `calculateArea`, которая будет принимать параметр типа `Rectangle` и возвращать площадь, топ которого будет `Double`
+
+```
+class Rectangle {
+    let length: Double
+    let width: Double
+    init(length: Double, width: Double) {
+        self.length = length
+        self.width = width
+    }
+}
+
+let myRect = Rectangle(length: 10, width: 5)
+func rectArea(of rect: Rectangle) -> Double {
+    rect.length*rect.width
+}
+
+print(rectArea(of: myRect))
+
+```
