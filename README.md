@@ -278,22 +278,20 @@ print(rectArea(of: myRect))
 *** Добавить дополнительные оружия - [Ссылка](https://en.wikipedia.org/wiki/Rock_paper_scissors#Additional_weapons)
 
 ```
-import Cocoa
-
 //Для отладки используйте Xcode или online компиллятор http://online.swiftplayground.run
 //Результат выведите в print
 
 
 let input = readLine()!.split(separator: " ")        //rock scissors - Считываем проверочные параметры
 let first = String(input.first!)                            //rock - 1 параметр в поле ввода - String
-let second = String(input.last!)                            //scissors - 2 параметр в поле ввода - String
+let second = String(input.last!)                             //scissors - 2 параметр в поле ввода - String
 
 //// 1. Определить тип для rock, paper, scissors и назвать его Choice. Какой подойдет лучше?
 //
-enum Choice {
-    case rock
-    case scissors
-    case paper
+enum Choice: String {
+    case rock = "rock"
+    case scissors = "scissors"
+    case paper = "paper"
 }
 //
 //// 2. Создать computed property для типа Choice, чтобы вычислять weakness
@@ -321,7 +319,7 @@ struct Game {
     var p2Score = 0
     var prevGames: [[Choice?]] = []
     
-    private func strToChoice(str: String) -> Choice? {
+    func strToChoice(str: String) -> Choice? {
         switch str {
         case "rock": return .rock
         case "paper": return .paper
@@ -330,7 +328,7 @@ struct Game {
         }
     }
     
-    static mutating func play( _ p1Choice: String, against p2Choice: String) {
+    mutating func play( _ p1Choice: String, against p2Choice: String) {
         let p1 = strToChoice(str: p1Choice)
         let p2 = strToChoice(str: p2Choice)
         var weakChoice: Choice?
@@ -338,18 +336,18 @@ struct Game {
         prevGames.append([p1,p2])
         
         
-        switch (p1, p2) {
-        case (.rock , .scissors): weakChoice = .scissors
-        case (.rock , .paper): weakChoice = .rock
-        case (.paper , .scissors): weakChoice = .paper
-        case (.paper, .rock): weakChoice = .rock
-        case (.scissors, .rock): weakChoice = .scissors
-        case (.scissors, .paper): weakChoice = .paper
+        switch (p1Choice, p2Choice) {
+        case ("rock" , "scissors"): weakChoice = .scissors
+        case ("rock" , "paper"): weakChoice = .rock
+        case ("paper" , "scissors"): weakChoice = .paper
+        case ("paper", "rock"): weakChoice = .rock
+        case ("scissors", "rock"): weakChoice = .scissors
+        case ("scissors", "paper"): weakChoice = .paper
             default: weakChoice = nil
         }
         
         if p1 == weakChoice {
-            print("player 1 wins")
+            print("player 2 wins")
             p1Score += 1
         }else if p2 == weakChoice {
             print("player 1 wins")
@@ -362,7 +360,6 @@ struct Game {
 }
 // 4. инициализировать выборы игроков используя first & second. Hint: rawValue
 
-
-game.play(p1Choice, against: p2Choice)
-
+var game = Game()
+game.play(first, against: second)
 ```
