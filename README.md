@@ -2,6 +2,105 @@
 
 ## Первая неделя
 
+```
+// Question 1
+func isZeroIn(array: [Int]) -> Bool {
+    for number in array {
+        if number == 0 {return true}
+    }
+    return false
+}
+
+isZeroIn(array: [1,2,3,4,0])
+
+// Question 2
+func isHereDoubleZero(in array: [Int]) -> Bool {
+    var zeroCounter = 0
+    for number in array {
+        if number == 0 { zeroCounter+=1}
+    }
+    return zeroCounter == 2
+}
+
+isHereDoubleZero(in: [1,2,3,40,0,55,0])
+
+// Question 3
+
+func isHereThreeZeroInOneRow(in array: [Int]) -> Bool {
+    var counter = 0
+    for number in array {
+        if (number == 0) {
+            counter += 1
+            if (counter == 3) { return true}
+        }else {
+            counter = 0
+        }
+    }
+    return false
+}
+
+isHereThreeZeroInOneRow(in: [1,2,3,0,0,1,0,0,0,1,0,1])
+
+// Question 4
+
+func sumOfNumbers(in numbers: [Int]) -> Int {
+    var summa = 0
+    for number in numbers {
+        summa += number
+    }
+    return summa
+}
+
+sumOfNumbers(in: [1,2,3])
+
+// Question 5
+func reversedArray(of array: [Int]) -> [Int] {
+    var returnArray: [Int] = []
+    var index = array.count - 1
+    for _ in 0..<array.count {
+        returnArray.append(array[index])
+        index -= 1
+    }
+    return returnArray
+}
+
+let array1 = [1,2,3,4,5]
+var reversedArray1 = reversedArray(of: array1)
+
+// Question 6
+func oddAndEvens(in array: [Int]) -> (Int, Int) {
+    var (odds, evens) = (0, 0)
+    for number in array {
+        if (number%2==0) {evens+=1}
+        else {odds+=1}
+    }
+    return (odds, evens)
+}
+
+let (odds, evens) = oddAndEvens(in: [1,2,3,4,5,6])
+odds
+evens
+
+// Question 7
+func rangeOfNumbers(in numbers: [Int]) -> Int {
+    if numbers.count == 0 {return 0}
+    var big = numbers[0]
+    var small = numbers[0]
+    for number in numbers {
+        if big < number {
+            big = number
+        }
+        if small > number {
+            small = number
+        }
+    }
+    return big - small
+}
+
+rangeOfNumbers(in: [4,2,66,1,0,11,])
+
+```
+
 ## Вторая неделя
 
 **6.1 Функции и Замыкания**
@@ -179,7 +278,9 @@ print(rectArea(of: myRect))
 *** Добавить дополнительные оружия - [Ссылка](https://en.wikipedia.org/wiki/Rock_paper_scissors#Additional_weapons)
 
 ```
-/Для отладки используйте Xcode или online компиллятор http://online.swiftplayground.run
+import Cocoa
+
+//Для отладки используйте Xcode или online компиллятор http://online.swiftplayground.run
 //Результат выведите в print
 
 
@@ -187,16 +288,16 @@ let input = readLine()!.split(separator: " ")        //rock scissors - Счит�
 let first = String(input.first!)                            //rock - 1 параметр в поле ввода - String
 let second = String(input.last!)                            //scissors - 2 параметр в поле ввода - String
 
-// 1. Определить тип для rock, paper, scissors и назвать его Choice. Какой подойдет лучше?
-
+//// 1. Определить тип для rock, paper, scissors и назвать его Choice. Какой подойдет лучше?
+//
 enum Choice {
     case rock
     case scissors
     case paper
 }
-
-// 2. Создать computed property для типа Choice, чтобы вычислять weakness
-
+//
+//// 2. Создать computed property для типа Choice, чтобы вычислять weakness
+//
 var weakness: Choice? {
     switch (first, second) {
     case ("rock" , "scissors"): return .scissors
@@ -218,14 +319,50 @@ var weakness: Choice? {
 struct Game {
     var p1Score = 0
     var p2Score = 0
-    var prevGames: [[Choice]] = []
+    var prevGames: [[Choice?]] = []
     
-    mutating func(p1Choice)
+    private func strToChoice(str: String) -> Choice? {
+        switch str {
+        case "rock": return .rock
+        case "paper": return .paper
+        case "scissors": return .scissors
+        default: return nil
+        }
+    }
     
+    static mutating func play( _ p1Choice: String, against p2Choice: String) {
+        let p1 = strToChoice(str: p1Choice)
+        let p2 = strToChoice(str: p2Choice)
+        var weakChoice: Choice?
+        
+        prevGames.append([p1,p2])
+        
+        
+        switch (p1, p2) {
+        case (.rock , .scissors): weakChoice = .scissors
+        case (.rock , .paper): weakChoice = .rock
+        case (.paper , .scissors): weakChoice = .paper
+        case (.paper, .rock): weakChoice = .rock
+        case (.scissors, .rock): weakChoice = .scissors
+        case (.scissors, .paper): weakChoice = .paper
+            default: weakChoice = nil
+        }
+        
+        if p1 == weakChoice {
+            print("player 1 wins")
+            p1Score += 1
+        }else if p2 == weakChoice {
+            print("player 1 wins")
+            p2Score += 1
+        }else {
+            print("draw")
+        }
+        
+    }
 }
 // 4. инициализировать выборы игроков используя first & second. Hint: rawValue
 
 
-//game.play(p1Choice, against: p2Choice)
+game.play(p1Choice, against: p2Choice)
 
 ```
