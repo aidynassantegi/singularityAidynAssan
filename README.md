@@ -434,6 +434,61 @@ struct Rectangle: Shape {
         2 * (height + width)
     }
 }
+```
 
+**7.3 Протоколы и расширения, POP**
 
+Задание:
+
+У вас есть класс `Calculate`, в котором есть приватный массив целых чисел.
+
+Создайте следующее:
+
+1) `Addition` - протокол имеющий метод, которая прибавляет все элементы массива
+
+2) `Multiplication` - протокол имеющий метод, которая умножает все элементы массива
+
+3) Расширение протокола `Multiplication`, который добавляет новую функциональность в виде метода сортировки.
+
+4) Напишите тестовый код для демонстрации
+```
+protocol Addition {
+    func add() -> Double
+}
+
+protocol Multiplication {
+    func multiply() -> Double
+}
+
+extension Multiplication {
+    func sort(_ array: [Double]) -> [Double] {
+        return array.sorted()
+    }
+}
+
+class Calculate: Addition, Multiplication {
+    let numbers: [Double]
+    init (_ numbers: [Double]) {
+        self.numbers = numbers
+    }
+    func add() -> Double {
+        var sum = 0.0
+        for number in numbers {
+            sum += number
+        }
+        return sum
+    }
+    
+    func multiply() -> Double {
+        var product = 1.0
+        for number in numbers {
+            product *= number
+        }
+        return product
+    }
+}
+
+let numbers = Calculate([1.0, 2.0, 3.0, 4.0])
+numbers.add()
+numbers.multiply()
 ```
