@@ -363,3 +363,77 @@ struct Game {
 var game = Game()
 game.play(first, against: second)
 ```
+
+##  3 неделя
+
+**7.1 Инкапсуляция, Наследование**
+
+```
+//MARK: - Transformer class
+class Transformer {
+    func run() {}
+    func fire() {}
+    func transform() {}
+}
+
+//MARK: - Autobot class inherited from Transformer
+class Autobot: Transformer {
+    private let attackLevel: Int = 100
+    
+    func fly() {}
+}
+//MARK: - Decepticon class inherited from Transformer
+class Decepticon: Transformer {
+    func jump() {}
+}
+
+let optimus = Autobot()
+let megatron = Decepticon()
+let unknownTransformer = Transformer()
+
+optimus.fly()
+optimus.fire()
+optimus.run()
+optimus.transform()
+
+megatron.jump()
+megatron.fire()
+megatron.run()
+megatron.transform()
+
+unknownTransformer.transform()
+unknownTransformer.run()
+unknownTransformer.fire()
+```
+
+**7.2 Полиморфизм, Абстракция**
+
+```
+protocol Shape {
+    func area() -> Double
+    func perimeter() -> Double
+}
+
+struct Circle: Shape {
+    let radius: Double
+    func area() -> Double {
+        Double.pi * radius * radius
+    }
+    func perimeter() -> Double {
+        2 * Double.pi * radius
+    }
+}
+
+struct Rectangle: Shape {
+    let height: Double
+    let width: Double
+    func area() -> Double {
+        height*width
+    }
+    func perimeter() -> Double {
+        2 * (height + width)
+    }
+}
+
+
+```
